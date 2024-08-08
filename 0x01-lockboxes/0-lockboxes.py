@@ -1,5 +1,5 @@
-
-lves the lock boxes puzzle """
+#!/usr/bin/python3
+"""Solves the lock boxes puzzle """
 
 
 def look_next_opened_box(opened_boxes):
