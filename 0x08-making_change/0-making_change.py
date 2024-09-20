@@ -1,23 +1,42 @@
+#!/usr/bin/python3
+"""
+Given a pile of coins of different values, determine the fewest number
+ of coins needed to meet a given amount total.
 
-/home/gracetech/.hushlogin file.
-gracetech@GRACETECH-LENOVO:~$ cd My_Alx_Task/
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task$ cd alx-interview
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview$ mkdir 0x08-making_change
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview$ cd 0x08-making_change
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview/0x08-making_change$ ls
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview/0x08-making_change$ vim README.md
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview/0x08-making_change$ git add README.md
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview/0x08-making_change$ git commit -m "readme content on 0x08. Making Change"
-[main f1ca38b] readme content on 0x08. Making Change
- 1 file changed, 108 insertions(+)
- create mode 100644 0x08-making_change/README.md
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview/0x08-making_change$ git ush
-git: 'ush' is not a git command. See 'git --help'.
+Prototype: def makeChange(coins, total)
+Return: fewest number of coins needed to meet total
+If total is 0 or less, return 0
+If total cannot be met by any number of coins you have, return -1
+coins is a list of the values of the coins in your possession
+The value of a coin will always be an integer greater than 0
+You can assume you have an infinite number of each denomination of
+ coin in the list
+Your solution’s runtime will be evaluated in this task
 
-The most similar command is
-        push
-gracetech@GRACETECH-LENOVO:~/My_Alx_Task/alx-interview/0x08-making_change$ git push
-Enumerating objects: 5, done.
-Counting objects: 100% (5/5), done.
-Delta compression using up to 4 threads
-Compressing objects: 100% (3/3), done.
+"""
+import sys
+
+
+def makeChange(coins, total):
+    """
+    Return: fewest number of coins needed to meet total
+    If total is 0 or less, return 0
+    If total cannot be met by any number of coins you have, return -1
+
+    ####### tabili is table ########
+    """
+    if total <= 0:
+        return 0
+    tabili = [sys.maxsize for i in range(total + 1)]
+    tabili[0] = 0
+    m = len(coins)
+    for i in range(1, total + 1):
+        for j in range(m):
+            if coins[j] <= i:
+                subres = tabili[i - coins[j]]
+                if subres != sys.maxsize and subres + 1 < tabili[i]:
+                    tabili[i] = subres + 1
+
+    if tabili[total] == sys.maxsize:
+        return -1
+    return tabili[total]
